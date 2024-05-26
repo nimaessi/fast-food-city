@@ -35,6 +35,12 @@
 		transform: translateX(0);
 	}
 }
+.fs-14{
+    font-size: 14px;
+}
+.bg-black {
+    background-color: #000000;
+}
 /*Category menu style */
 .bg-fast-food {
     background-color: #212529;
