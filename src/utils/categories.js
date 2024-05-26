@@ -2,7 +2,7 @@ import pizza from "@/public/images/card-pizza.jpg";
 import hamber from "@/public/images/hamber.jpg";
 import salad from "@/public/images/salad.jpg";
 import sand from "@/public/images/sand.jpg";
-import drink from "@/public/images/drink.png";
+import drink from "@/public/images/drink-1.jpg";
 import fried from "@/public/images/fried-chicken.png";
 
 export const categories = [
