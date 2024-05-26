@@ -9,7 +9,7 @@ const MyCard = ({pic, title}) => {
           alt = "product-category" 
           height = {250} 
           src = {pic} />
-        <Card.Title className = "text-center mt-2 fs-5">{title}</Card.Title>
+        <p className = "text-center mt-2 fs-5 card-title">{title}</p>
     </Card>
   )
 }

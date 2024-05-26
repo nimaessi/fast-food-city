@@ -1,8 +1,12 @@
 import Poster from "@/module/Poster";
+import CategoryMenu from "@/module/CategoryMenu";
 
 const HomePage = () => {
   return (
-    <Poster />
+    <>
+      <Poster />
+      <CategoryMenu />
+    </>
   )
 }
 
