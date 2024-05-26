@@ -1,0 +1,44 @@
+/*Home page style */
+.poster-logo {
+    max-width: 350px;
+    filter: drop-shadow(-6px -3px 5px #000000);
+}
+.bg-poster {
+    position: relative;
+    background: url(/images/pizza.jpg);
+    background-size: cover;
+    min-height: 60vh;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.blurOverlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.4); /* Adjust the opacity as needed */
+    backdrop-filter: blur(3px);
+
+}
+.slide-right{
+    animation: slideRight 3s ease 0s 1 normal forwards;
+}
+@keyframes slideRight {
+	0% {
+		opacity: 0;
+		transform: translateX(350px);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+/*Category menu style */
+.bg-fast-food {
+    background-color: #212529;
+    background-image: url(/images/bg-fast-food.jpg);
+    background-repeat: repeat;
+}
+
