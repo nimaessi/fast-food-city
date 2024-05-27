@@ -50,4 +50,11 @@
     background-image: url(/images/bg-fast-food.jpg);
     background-repeat: repeat;
 }
-
+/*appetizer style */
+.bg-poster-appetizer {
+    background: url(/images/appetizer.jpg);
+    background-size: cover;
+    min-height: 60vh;
+    background-repeat: no-repeat;
+    background-position: center;
+}

@@ -9,32 +9,38 @@ export const categories = [
     {
       id: 1,
       title: "پیتزا",
-      pic: pizza
+      pic: pizza,
+      slug: "pizza"
     },
     {
       id: 2,
       title: "ویژه شهر فست فود",
-      pic: hamber
+      pic: hamber,
+      slug: "special-ffc"
     },
     {
       id: 3,
       title: "ساندویچ",
-      pic: sand
+      pic: sand,
+      slug: "sandwich"
     },
     {
       id: 4,
       title: "پیش غذا",
-      pic: salad
+      pic: salad,
+      slug: "appetizer"
     },
     {
       id: 5,
       title: "نوشیدنی",
-      pic: drink
+      pic: drink,
+      slug: "drink"
     },
     {
       id: 6,
       title: "سوخاری",
-      pic: fried
+      pic: fried,
+      slug: "fried"
     },
   
   ];
