@@ -8,17 +8,17 @@ const CategoryMenu = () => {
     rows.push(categories.slice(i, i + 3));
   }
   return (
-    <Container fluid className = "px-3">
-      {rows.map((row, rowIndex) => (
-          <Row key={rowIndex}>
-            {row.map((item) => (
-              <Col md={4} key={item.id}>
-                <MyCard title={item.title} pic={item.pic} />
-              </Col>
-            ))}
-          </Row>
-        ))}
-    </Container>
+      <Container fluid className = "px-3 my-categories">
+        {rows.map((row, rowIndex) => (
+            <Row key={rowIndex}>
+              {row.map((item) => (
+                <Col md={4} key={item.id}>
+                  <MyCard title={item.title} pic={item.pic} />
+                </Col>
+              ))}
+            </Row>
+          ))}
+      </Container>
   )
 }
 
