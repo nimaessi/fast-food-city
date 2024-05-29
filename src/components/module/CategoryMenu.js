@@ -13,7 +13,11 @@ const CategoryMenu = () => {
             <Row key={rowIndex}>
               {row.map((item) => (
                 <Col md={4} key={item.id}>
-                  <MyCard title={item.title} pic={item.pic} />
+                  <MyCard
+                    id = {item.id} 
+                    title={item.title}
+                    slug = {item.slug}
+                    pic={item.pic} />
                 </Col>
               ))}
             </Row>
