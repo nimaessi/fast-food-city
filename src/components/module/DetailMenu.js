@@ -1,6 +1,6 @@
 "use client"
 import { Container, ListGroup, Badge } from "react-bootstrap";
-import { sp } from "@/utils/replaceNumber";
+import { sp, e2p } from "@/utils/replaceNumber";
 const DetailMenu = () => {
   return (
     <Container className = "bg-dark">
@@ -15,7 +15,7 @@ const DetailMenu = () => {
                 className = "d-flex justify-content-between align-items-start">
                 <div className="ms-2 me-auto fs-12">
                     <div className="fw-bold fs-5">بندری</div>
-                    نان زاپاتا + 300گرم بندری + گوجه + خیارشور
+                    {e2p("نان زاپاتا + 300 گرم بندری + گوجه + خیارشور")}
                 </div>
                 <div className = "d-flex flex-column">
                     <Badge bg = "warning" className = "text-dark" pill>نرمال {sp(50000)}</Badge>
