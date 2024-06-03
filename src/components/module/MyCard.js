@@ -1,6 +1,5 @@
 "use client"
-import { Card } from "react-bootstrap";
-import Image from "next/image";
+import { Card, Image } from "react-bootstrap";
 import { useRouter } from "next/navigation";
 
 const MyCard = ({pic, title, id, slug}) => {
