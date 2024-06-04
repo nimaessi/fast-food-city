@@ -1,13 +1,9 @@
 import { Container, Row, Col } from "react-bootstrap";
 import MyCard from "./MyCard";
+import { getData } from "src/services/fetchData";
 
 const CategoryMenu = async () => {
-  
-  const response = await fetch("http://localhost:3000/api/category/getCategories",{ cache: 'no-store' });
-  const categories = await response.json();
-  console.log(categories);
-
-
+  const categories = await getData("http://localhost:3000/api/category/getCategories");
   const rows = [];
   for (let i = 0; i < categories.length; i += 3) {
     rows.push(categories.slice(i, i + 3));
@@ -20,7 +16,7 @@ const CategoryMenu = async () => {
                 <Col md={4} key={item.id}>
                   <MyCard
                     id = {item.id} 
-                    title={item.slug}
+                    title={item.label}
                     slug = {item.slug}
                     pic={item.pic} />
                 </Col>
