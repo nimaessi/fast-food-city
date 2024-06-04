@@ -1,6 +1,7 @@
 const dictionary = {
     small: "نرمال",
     medium: "دونفره",
-    large: "خانواده"
+    large: "خانواده",
+    free: ""
 }
 export { dictionary }
