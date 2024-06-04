@@ -5,14 +5,14 @@ import { useRouter } from "next/navigation";
 const MyCard = ({pic, title, id, slug}) => {
 
   const router = useRouter();
-  const handleClick = (id,slug) => {
-    router.push(`ffc-menu/${slug}/${id}`);
+  const handleClick = (slug) => {
+    router.push(`/ffc-menu/${slug}`);
   }
   return (
     <Card 
       className = "w-75 mt-5 mx-auto cursor-pointer" 
       data-bs-theme = "dark" 
-      onClick={() => {handleClick(id,slug)}}>
+      onClick={() => {handleClick(slug)}}>
         <Image 
           className = "mx-auto mt-3 img-fluid"
           alt = "product-category" 

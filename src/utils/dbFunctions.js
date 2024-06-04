@@ -12,7 +12,7 @@ const selectCategory = async () => {
 
 const findCategory = async (slug) => {
 
-  const regex = /[^A-Za-z0-9]/;
+  const regex = /[^A-Za-z0-9-]/;
   if(regex.test(slug)){
      throw "an error occurred";
   }
@@ -22,7 +22,7 @@ const findCategory = async (slug) => {
     [slug]
   );
   connection.end();
-  return results;
+  return results[0];
 }
 
 

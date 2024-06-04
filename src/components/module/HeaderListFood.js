@@ -15,7 +15,7 @@ const HeaderListFood = ({data}) => {
       </Row>
       <Row>
         <Col>
-          <h1 className = "display-1 text-light text-shadow">{data.title}</h1>
+          <h1 className = "display-1 text-light text-shadow">{data.label}</h1>
         </Col>
       </Row>
     </Container>

@@ -1,13 +1,11 @@
 import ListFood from "@/template/list-food/ListFood";
+import { getData } from "src/services/fetchData";
 
 async function page({ params }) {
 
-  ////api request ...
-  //const data = categories.find((category) => category.slug === params.slug[0]);
-  console.log(params);
+  const data = await getData(`http://localhost:3000/api/category/${params.slug[0]}`);
   return (
-    <h1>list</h1>
-    /*<ListFood data = {data}  />*/
+    <ListFood data = {data}  />
   )
 }
 

@@ -4,6 +4,7 @@ import { getData } from "src/services/fetchData";
 
 const CategoryMenu = async () => {
   const categories = await getData("http://localhost:3000/api/category/getCategories");
+  console.log(categories)
   const rows = [];
   for (let i = 0; i < categories.length; i += 3) {
     rows.push(categories.slice(i, i + 3));
