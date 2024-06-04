@@ -3,7 +3,7 @@ import { getData } from "src/services/fetchData";
 
 async function page({ params }) {
 
-  const data = await getData(`http://localhost:3000/api/category/${params.slug[0]}`);
+  const data = await getData(`${process.env.BASE_URL_API}/category/${params.slug[0]}`);
   return (
     <ListFood data = {data}  />
   )

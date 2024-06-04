@@ -4,7 +4,7 @@ import { getData } from "src/services/fetchData";
 
 
 const ListFood = async ({ data }) => {
-  const products = await getData(`http://localhost:3000/api/products/${data.id}`);
+  const products = await getData(`${process.env.BASE_URL_API}/products/${data.id}`);
   return (
     <>
      <HeaderListFood data = {data} />
