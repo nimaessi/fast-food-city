@@ -1,26 +1,29 @@
 "use client"
 import { Container, ListGroup, Badge } from "react-bootstrap";
 import { sp, e2p } from "@/utils/replaceNumber";
-const DetailMenu = () => {
+import { dictionary } from "@/constants/dictionary";
+const DetailMenu = ({ products }) => {
   return (
     <Container className = "bg-dark">
         <ListGroup
             data-bs-theme = "dark"
             className = "mt-4" 
             as = "ol" >
-        {[...new Array(10)].map((_,index) => (
+        {products.map((product, index) => (
             <ListGroup.Item
                 as = "li"
-                key = {index}
+                key = {product.id}
                 className = "d-flex justify-content-between align-items-start">
                 <div className="ms-2 me-auto fs-12">
-                    <div className="fw-bold fs-5">بندری</div>
-                    {e2p("نان زاپاتا + 300 گرم بندری + گوجه + خیارشور")}
+                    <div className="fw-bold fs-5">{product.title}</div>
+                    {e2p(product.details)}
                 </div>
                 <div className = "d-flex flex-column">
-                    <Badge bg = "warning" className = "text-dark" pill>نرمال {sp(50000)}</Badge>
-                    <Badge bg = "warning" className = "text-dark mt-1" pill> دونفره  {sp(270000)}</Badge>
-                    <Badge bg = "warning" className = "text-dark mt-1" pill>خانواده {sp(253000)}</Badge>
+                    {product.prices.map((price,index) => (
+                        <Badge key = {index} bg = "warning" className = "text-dark mt-1" pill>
+                            {dictionary[price.size]} {sp(price.price)}
+                        </Badge>
+                    ))}
                 </div>
             </ListGroup.Item>
         ))}

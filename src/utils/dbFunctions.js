@@ -24,6 +24,19 @@ const findCategory = async (slug) => {
   connection.end();
   return results[0];
 }
+const productOfCategory = async (idCategory) =>{
+  const connection = await connectDB();
+  const [results] = await connection.query(
+    'SELECT products.* , size_product.price, size_product.size FROM products INNER JOIN size_product ON size_product.id_product = products.id WHERE products.id_category = ?',
+    [idCategory]
+  );
+  connection.end();
+  return results;
+}
 
 
-export{ selectCategory, findCategory };
+export{ 
+  selectCategory, 
+  findCategory, 
+  productOfCategory 
+};
