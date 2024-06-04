@@ -9,4 +9,21 @@ const selectCategory = async () => {
   connection.end();
   return results;
 }
-export{ selectCategory };
+
+const findCategory = async (slug) => {
+
+  const regex = /[^A-Za-z0-9]/;
+  if(regex.test(slug)){
+     throw "an error occurred";
+  }
+  const connection = await connectDB();
+  const [results] = await connection.query(
+    'SELECT * FROM category where slug = ?',
+    [slug]
+  );
+  connection.end();
+  return results;
+}
+
+
+export{ selectCategory, findCategory };
