@@ -14,7 +14,7 @@ const findCategory = async (slug) => {
 
   const regex = /[^A-Za-z0-9-]/;
   if(regex.test(slug)){
-     throw "an error occurred";
+     throw "An error occurred";
   }
   const connection = await connectDB();
   const [results] = await connection.query(
@@ -33,10 +33,20 @@ const productOfCategory = async (idCategory) =>{
   connection.end();
   return results;
 }
+const findAdmin = async (username, password) => {
+  const connection = await connectDB();
+  const [result] = await connection.query(
+    'SELECT * FROM admin WHERE username = ? AND password = ?',
+    [username,password]
+  );
+  connection.end();
+  return result;
+}
 
 
 export{ 
   selectCategory, 
   findCategory, 
-  productOfCategory 
+  productOfCategory,
+  findAdmin 
 };
