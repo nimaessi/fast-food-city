@@ -33,11 +33,11 @@ const productOfCategory = async (idCategory) =>{
   connection.end();
   return results;
 }
-const findAdmin = async (username, password) => {
+const findAdmin = async (username) => {
   const connection = await connectDB();
   const [result] = await connection.query(
-    'SELECT * FROM admin WHERE username = ? AND password = ?',
-    [username,password]
+    'SELECT * FROM admin WHERE username = ?',
+    [username]
   );
   connection.end();
   return result;

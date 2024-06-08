@@ -1,4 +1,5 @@
-import { hashPassword } from "@/utils/auth";
+import { verifyPassword } from "@/utils/auth";
+import { findAdmin } from "@/utils/dbFunctions";
 import { NextResponse } from "next/server";
 
 export async function POST (req){
@@ -10,8 +11,9 @@ export async function POST (req){
               { status: 422 }
             );
         }
-        const hashPss = await hashPassword(password);
-        return NextResponse.json({res: hashPss},{status: 200});
+        const findAdminData = await findAdmin(username);
+        const isValid = await verifyPassword(password, findAdminData[0].password);
+        return NextResponse.json({res: isValid},{status: 200});
 
     } catch(err){
         return NextResponse.json({error: "An error occurred"},{status: 500});
