@@ -18,7 +18,7 @@ const page = () => {
     event.preventDefault();
     setLoading(true);
     const res = await signIn("credentials",{
-      username: inputs.username,
+      email: inputs.username,
       password: inputs.password,
       redirect: false,
     });
@@ -27,7 +27,7 @@ const page = () => {
       toast.error(res.error);
     } else {
       setLoading(false);
-      router.push("/");
+      router.push("/dashboard/admin/profile");
     }
   }
   const handleChange = (event) => {
@@ -81,7 +81,6 @@ const page = () => {
                 </Form>
             </Card.Body>
         </Card>
-        
     </Container>
   )
 }

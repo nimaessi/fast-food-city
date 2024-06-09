@@ -2,26 +2,21 @@ import { verifyPassword } from "@/utils/auth";
 import { findAdmin } from "@/utils/dbFunctions";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
-
+////username in form login === email
 export const authOptions = {
     session: { strategy: "jwt" },
     providers: [
       CredentialsProvider({
         async authorize(credentials) {
-          const { username, password } = credentials;
-          var admin = [];
-          if (!username || !password) {
+          const { email, password } = credentials;
+          if (!email || !password) {
             throw new Error("لطفا اطلاعات معتبر وارد کنید");
           }  
-          try{
-            admin = await findAdmin(username);
-          } catch(error){
-            throw new Error("مشکلی در سرور رخ داده است");
-          }
+          const admin = await findAdmin(email);
           if(admin.length != 1) throw new Error("نام کاربری اشتباه می باشد");
           const isValid = await verifyPassword(password, admin[0].password);
           if (!isValid) throw new Error(" رمز عبور اشتباه است");
-          return { username };
+          return { email };
         },
       }),
     ],
