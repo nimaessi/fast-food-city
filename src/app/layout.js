@@ -2,7 +2,6 @@ import 'bootstrap/dist/css/bootstrap.rtl.min.css';
 import { ThemeProvider } from "react-bootstrap";
 import { vazir } from '@/utils/fonts';
 import "./globals.css";
-import Footer from '@/layout/Footer';
 import { Toaster } from 'react-hot-toast';
 import NextAuthProvider from '@/providers/NextAuthProvider';
 export const metadata = {
@@ -19,7 +18,6 @@ export default function RootLayout({ children }) {
             <Toaster />
             {children}
           </ThemeProvider>
-          <Footer />
         </NextAuthProvider>
       </body>
     </html>
