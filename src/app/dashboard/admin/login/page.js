@@ -3,14 +3,32 @@ import { useState } from 'react';
 import { Card, Container, Button } from 'react-bootstrap';
 import * as Icon from "react-bootstrap-icons";
 import Form from 'react-bootstrap/Form';
-import { postData } from 'src/services/postData';
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import toast from 'react-hot-toast';
+import { ThreeDots } from "react-loader-spinner";
+
 const page = () => {
 
   const [inputs, setInputs] = useState({});
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const res = await postData("/api/auth/signin",inputs);
-    console.log("RESPONSE => ",res.res);
+    setLoading(true);
+    const res = await signIn("credentials",{
+      username: inputs.username,
+      password: inputs.password,
+      redirect: false,
+    });
+    if (res.error) {
+      setLoading(false);
+      toast.error(res.error);
+    } else {
+      setLoading(false);
+      router.push("/");
+    }
   }
   const handleChange = (event) => {
     const name = event.target.name;
@@ -49,8 +67,16 @@ const page = () => {
                 <Button
                   type = "submit" 
                   variant="warning" 
-                  className = "mt-3 w-100">
-                    ورود
+                  className = "mt-3 w-100 d-flex justify-content-center">
+                    {loading ? (
+                      <ThreeDots
+                        color = "#000000"
+                        visible = {true}
+                        height = {20}
+                        width = {50}
+                        ariaLabel="three-dots-loading"/>
+                        ) : ("ورود")
+                    }
                   </Button>
                 </Form>
             </Card.Body>

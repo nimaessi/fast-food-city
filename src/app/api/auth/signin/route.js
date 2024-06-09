@@ -12,9 +12,15 @@ export async function POST (req){
             );
         }
         const findAdminData = await findAdmin(username);
-        const isValid = await verifyPassword(password, findAdminData[0].password);
-        return NextResponse.json({res: isValid},{status: 200});
-
+        if(findAdminData.length === 1){
+            const isValid = await verifyPassword(password, findAdminData[0].password);
+            if(!isValid){
+                return NextResponse.json({error: "رمز عبور اشتباه می باشد"},{status: 422});
+            }
+            return NextResponse.json({res: isValid},{status: 200});
+        }else{
+            return NextResponse.json({error: "نام کاربری اشتباه می باشد"},{status: 422});
+        }
     } catch(err){
         return NextResponse.json({error: "An error occurred"},{status: 500});
     }
