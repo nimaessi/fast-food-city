@@ -5,13 +5,12 @@ import { e2p } from "@/utils/replaceNumber";
 import Image from "next/image";
 import Link from "next/link";
 
-const DataTableCategory = () => {
+const DataTableCategory = ({ category, setCategory }) => {
 
-    const [data, setData] = useState();
     const fetchData = useCallback(async() => {
         const res = await fetch("/api/category/getCategories");
         const result = await res.json();
-        setData(result);
+        setCategory(result);
     },[])
     useEffect(() => {
         fetchData();
@@ -28,7 +27,7 @@ const DataTableCategory = () => {
                 </tr>
             </thead>
             <tbody>
-                {data?.map((item) => (
+                {category?.map((item) => (
                     <tr key = {item.id}>
                         <td className = "text-center align-content-center">{e2p(item.id)}</td>
                         <td className = "text-center align-content-center">{item.label}</td>
