@@ -1,6 +1,6 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"
-import ProfilePage from "@/template/admin/profilePage";
-import { getServerSession } from "next-auth"
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import ProfilePage from "@/template/admin/ProfilePage";
+import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
 const page = async () => {
