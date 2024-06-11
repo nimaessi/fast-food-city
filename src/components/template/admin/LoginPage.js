@@ -37,7 +37,7 @@ const LoginPage = () => {
   }
   return (
     <Container fluid className = "d-flex align-items-center justify-content-center vh-100 overflow-hidden">
-        <Card data-bs-theme = "dark" className = "w-25">
+        <Card data-bs-theme = "dark" className = "w-75">
             <Card.Header className = "text-center p-3">
                 <Icon.BoxArrowInLeft className = "me-2 fs-5" />
                 ورود پنل ادمین

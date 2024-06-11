@@ -1,6 +1,7 @@
 "use client"
 import { Tabs, Tab } from 'react-bootstrap';
 import DataTableCategory from './DataTable';
+import DataTableProducts from './DataTableProducts';
 
 const MyTabs = () => {
   return (
@@ -14,7 +15,7 @@ const MyTabs = () => {
           <DataTableCategory />
       </Tab>
       <Tab eventKey = "products" title = "محصولات">
-        Tab content for Profile
+        <DataTableProducts />
       </Tab>
     </Tabs>
   )

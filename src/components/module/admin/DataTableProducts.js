@@ -5,7 +5,7 @@ import { e2p } from "@/utils/replaceNumber";
 import Image from "next/image";
 import Link from "next/link";
 
-const DataTableCategory = () => {
+const DataTableProducts = () => {
 
     const [data, setData] = useState();
     const fetchData = useCallback(async() => {
@@ -21,10 +21,10 @@ const DataTableCategory = () => {
             <thead>
                 <tr>
                     <th className = "text-center">شماره</th>
-                    <th className = "text-center"> نام دسته بندی </th>
-                    <th className = "text-center">لینک صفحه</th>
-                    <th className = "text-center">عکس</th>
-                    <th className = "text-center">ویرایش</th>
+                    <th className = "text-center"> نام محصول</th>
+                    <th className = "text-center">توضیحات</th>
+                    <th className = "text-center">اندازه</th>
+                    <th className = "text-center">قیمت</th>
                 </tr>
             </thead>
             <tbody>
@@ -54,4 +54,4 @@ const DataTableCategory = () => {
   )
 }
 
-export default DataTableCategory;
+export default DataTableProducts;
