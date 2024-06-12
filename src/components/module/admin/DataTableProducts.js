@@ -6,10 +6,12 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import { dictionary } from "@/constants/dictionary";
 import Loader from "../Loader";
-const DataTableProducts = ({ category }) => {
+import EditModal from "./EditModal";
+const DataTableProducts = ({ category, showModal, setShowModal }) => {
 
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [editProduct, setEditProduct] = useState([{title: "", details: ""}]);
     const handleRequest = async(event) => {
         if(event.target.value > 0){
             setLoading(true);
@@ -20,15 +22,24 @@ const DataTableProducts = ({ category }) => {
             setLoading(false);
         }
     }
+    const EditProducts = (productId) => {
+        setEditProduct(() => data.filter((product) => product.id === productId));
+        setShowModal(true);
+    }
   return (
+    <>
+    <EditModal 
+        showModal = {showModal} 
+        setShowModal = {setShowModal}
+        product = {editProduct}  />
     <Table striped bordered responsive variant = "dark" className = "mt-5">
             <thead>
                 <tr>
                     <th className = "text-center">شماره</th>
                     <th className = "text-center"> نام محصول</th>
                     <th className = "text-center">توضیحات</th>
-                    <th className = "text-center">اندازه</th>
-                    <th className = "text-center">قیمت</th>
+                    <th className = "text-center">اندازه و قیمت</th>
+                    <th className = "text-center">ویرایش</th>
                 </tr>
             </thead>
             <tbody>
@@ -74,12 +85,16 @@ const DataTableProducts = ({ category }) => {
                             ))}
                         </td>
                         <td className = "text-center align-content-center">
-                            <Button variant = "warning">ویرایش</Button>
+                            <Button 
+                                variant = "warning"
+                                onClick = {() => EditProducts(item.id)}>ویرایش
+                            </Button>
                         </td>
                     </tr>
                 ))}
             </tbody>
     </Table>
+    </>
   )
 }
 
