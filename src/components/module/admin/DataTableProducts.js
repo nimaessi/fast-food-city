@@ -11,12 +11,14 @@ const DataTableProducts = ({ category }) => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
     const handleRequest = async(event) => {
-        setLoading(true);
-        setData([]);
-        const res = await fetch(`/api/products/${event.target.value}`);
-        const result = await res.json();
-        setData(result);
-        setLoading(false);
+        if(event.target.value > 0){
+            setLoading(true);
+            setData([]);
+            const res = await fetch(`/api/products/${event.target.value}`);
+            const result = await res.json();
+            setData(result);
+            setLoading(false);
+        }
     }
   return (
     <Table striped bordered responsive variant = "dark" className = "mt-5">
@@ -37,6 +39,7 @@ const DataTableProducts = ({ category }) => {
                             controlId = "category" 
                             label = "دسته بندی محصول">
                             <Form.Select aria-label = "دسته بندی محصول" onChange = {handleRequest}>
+                                <option key = "none" value = "none">دسته بندی محصول انتخاب کنید</option>
                                 { category?.map((item) => (
                                     <option 
                                         key = {item.id} 
