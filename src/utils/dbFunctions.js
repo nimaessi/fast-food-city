@@ -43,10 +43,23 @@ const findAdmin = async (username) => {
   return result;
 }
 
+////admin 
+const updateProduct = async (data) =>{
+  const {id,title,details} = data;
+  const connection = await connectDB();
+  const [result] = await connection.query(
+    'UPDATE products SET title = ?, details = ? WHERE id = ?'
+    [title,details,id]
+  );
+  connection.end();
+  return result;
+}
+
 
 export{ 
   selectCategory, 
   findCategory, 
   productOfCategory,
-  findAdmin 
+  findAdmin,
+  updateProduct 
 };
