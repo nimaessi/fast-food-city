@@ -47,10 +47,9 @@ const findAdmin = async (username) => {
 const updateProduct = async (data) =>{
   const {id,title,details} = data;
   const connection = await connectDB();
-  const [result] = await connection.query(
-    'UPDATE products SET title = ?, details = ? WHERE id = ?'
-    [title,details,id]
-  );
+  const sql = 'UPDATE `products` SET `title` = ?, `details` = ? WHERE `id` = ?';
+  const value = [title,details,id];
+  const [result] = await connection.query(sql,value);
   connection.end();
   return result;
 }

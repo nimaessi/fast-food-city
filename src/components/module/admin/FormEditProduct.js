@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { postData } from 'src/services/postData';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 const FormEditProduct = ({data}) => {
 
@@ -14,13 +15,12 @@ const FormEditProduct = ({data}) => {
   }
   const submitHandler = async (event) => {
     event.preventDefault();
-    console.log(inputs);
-    /*const res = await postData("url api",{
-      idProduct: data[0].id,
-      title: event.target.value,
-      details: event.target.value,
-    });
-    console.log(res);*/
+    const res = await postData("/api/products/edit",{...inputs, id: data[0].id,},"PATCH");
+    if(res.error){
+      toast.error(res.error);
+    }else{
+      toast.success(res.message);
+    }
   }
   return (
     <Form onSubmit = {submitHandler}>
