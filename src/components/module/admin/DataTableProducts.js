@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Badge, Button, Row, Table } from "react-bootstrap";
 import { e2p, sp } from "@/utils/replaceNumber";
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
@@ -26,11 +26,26 @@ const DataTableProducts = ({ category, showModal, setShowModal }) => {
         setEditProduct(() => data.filter((product) => product.id === productId));
         setShowModal(true);
     }
+    useEffect(() => {
+        async function refetch () {
+            if(!showModal & data.length > 0){
+                setLoading(true);
+                setData([]);
+                const res = await fetch(`/api/products/${data[0]?.id_category}`);
+                const result = await res.json();
+                console.log("RES async",result)
+                setData(result);
+                setLoading(false);
+            }
+        }
+        refetch();
+    },[showModal])
   return (
     <>
     <EditModal 
         showModal = {showModal} 
         setShowModal = {setShowModal}
+        setData = {setData}
         product = {editProduct}  />
     <Table striped bordered responsive variant = "dark" className = "mt-5">
             <thead>

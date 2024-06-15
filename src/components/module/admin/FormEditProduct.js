@@ -5,7 +5,8 @@ import { postData } from 'src/services/postData';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 
-const FormEditProduct = ({data}) => {
+const FormEditProduct = ({data, handleClose}) => {
+
 
   const [inputs, setInputs] = useState(...data);
   const handleChange = (event) => {
@@ -16,11 +17,8 @@ const FormEditProduct = ({data}) => {
   const submitHandler = async (event) => {
     event.preventDefault();
     const res = await postData("/api/products/edit",{...inputs, id: data[0].id,},"PATCH");
-    if(res.error){
-      toast.error(res.error);
-    }else{
-      toast.success(res.message);
-    }
+    res.error ? toast.error(res.error) : toast.success(res.message);
+    handleClose();
   }
   return (
     <Form onSubmit = {submitHandler}>

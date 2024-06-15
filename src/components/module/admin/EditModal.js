@@ -11,7 +11,7 @@ const EditModal = ({showModal, setShowModal, product}) => {
             <Modal.Title className = "text-light">ویرایش محصول</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <FormEditProduct data = {product}  />
+            <FormEditProduct data = {product} handleClose = {handleClose}  />
         </Modal.Body>
     </Modal>
   )
