@@ -1,21 +1,23 @@
 "use client"
-import { useCallback, useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Button, Table } from "react-bootstrap";
 import { e2p } from "@/utils/replaceNumber";
 import Image from "next/image";
 import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCategories, selectAllCategory } from "@/features/category/categorySlice";
+import Loader from "../loading";
 
-const DataTableCategory = ({ category, setCategory }) => {
+const DataTableCategory = () => {
 
-    const fetchData = useCallback(async() => {
-        const res = await fetch("/api/category/getCategories");
-        const result = await res.json();
-        setCategory(result);
-    },[])
+    const dispatch = useDispatch();
+    const {categories, error, loading } = useSelector(selectAllCategory);
     useEffect(() => {
-        fetchData();
-    },[fetchData])
+        dispatch(fetchCategories());
+    },[])
   return (
+    <>
+    {loading ? (<Loader/>) :(
     <Table striped bordered responsive variant = "dark" className = "mt-5">
             <thead>
                 <tr>
@@ -27,7 +29,7 @@ const DataTableCategory = ({ category, setCategory }) => {
                 </tr>
             </thead>
             <tbody>
-                {category?.map((item) => (
+                {categories?.map((item) => (
                     <tr key = {item.id}>
                         <td className = "text-center align-content-center">{e2p(item.id)}</td>
                         <td className = "text-center align-content-center">{item.label}</td>
@@ -50,6 +52,8 @@ const DataTableCategory = ({ category, setCategory }) => {
                 ))}
             </tbody>
     </Table>
+    )}
+    </>
   )
 }
 

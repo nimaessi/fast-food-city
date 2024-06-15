@@ -1,15 +1,16 @@
 import Header from "@/module/admin/Header";
 import MyTabs from "@/module/admin/MyTabs";
+import Providers from "@/redux/Providers";
 import { Container } from "react-bootstrap";
 
 const ProfilePage = () => {
   return (
-    <>
-        <Header />
-        <Container className = "bg-dark">
-            <MyTabs />
-        </Container>
-    </>
+    <Providers>
+      <Header />
+      <Container className = "bg-dark">
+          <MyTabs />
+      </Container>
+    </Providers>
   )
 }
 

@@ -5,7 +5,7 @@ import { e2p, sp } from "@/utils/replaceNumber";
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import { dictionary } from "@/constants/dictionary";
-import Loader from "../Loader";
+import Loader from "../loading";
 import EditModal from "./EditModal";
 const DataTableProducts = ({ category, showModal, setShowModal }) => {
 

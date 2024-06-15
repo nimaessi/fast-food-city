@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { selectCategory } from "@/utils/dbFunctions";
 
-export async function GET(){
+export async function GET(request){
     try{
         const data = await selectCategory();
         return NextResponse.json(data,{status: 200});
