@@ -1,12 +1,17 @@
 "use client"
 import { Modal } from "react-bootstrap";
 import FormEditProduct from "./FormEditProduct";
+import { useDispatch, useSelector } from "react-redux";
+import { closeModal, selectModal } from "@/features/modal/modalSlice";
 
-const EditModal = ({showModal, setShowModal, product}) => {
-    const handleClose = () => setShowModal(false);
-    const handleShow = () => setShowModal(true);
+const EditModal = () => {
+
+    const {show, action, product} = useSelector(selectModal);
+    const dispatch = useDispatch();
+    const handleClose = () => dispatch(closeModal());
+    
   return (
-    <Modal show = {showModal} onHide = {handleClose} data-bs-theme = "dark">
+    <Modal show = {show} onHide = {handleClose} data-bs-theme = "dark">
         <Modal.Header closeButton>
             <Modal.Title className = "text-light">ویرایش محصول</Modal.Title>
         </Modal.Header>

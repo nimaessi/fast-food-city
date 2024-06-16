@@ -7,7 +7,6 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import toast from 'react-hot-toast';
 import { ThreeDots } from "react-loader-spinner";
-import Loader from '@/module/Loader';
 
 const LoginPage = () => {
 
@@ -70,7 +69,8 @@ const LoginPage = () => {
                   variant="warning" 
                   className = "mt-3 w-100 d-flex justify-content-center">
                     {loading ? (
-                      <Loader 
+                      <ThreeDots
+                        color = "#000000" 
                         height = {20}  
                         width = {50} />
                         ) : ("ورود")

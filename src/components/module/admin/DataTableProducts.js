@@ -7,46 +7,28 @@ import Form from 'react-bootstrap/Form';
 import { dictionary } from "@/constants/dictionary";
 import Loader from "../loading";
 import EditModal from "./EditModal";
-const DataTableProducts = ({ category, showModal, setShowModal }) => {
+import { useDispatch, useSelector } from "react-redux";
+import { selectAllCategory } from "@/features/category/categorySlice";
+import { fetchProducts, selectProduct } from "@/features/products/productSlice";
+import { editTitle } from "@/features/modal/modalSlice";
+const DataTableProducts = () => {
 
-    const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [editProduct, setEditProduct] = useState([{title: "", details: ""}]);
+    const {categories} = useSelector(selectAllCategory);
+    const {products, error, loading} = useSelector(selectProduct);
+    const dispatch = useDispatch();
+
     const handleRequest = async(event) => {
         if(event.target.value > 0){
-            setLoading(true);
-            setData([]);
-            const res = await fetch(`/api/products/${event.target.value}`);
-            const result = await res.json();
-            setData(result);
-            setLoading(false);
+           dispatch(fetchProducts(event.target.value));
         }
     }
     const EditProducts = (productId) => {
-        setEditProduct(() => data.filter((product) => product.id === productId));
-        setShowModal(true);
+        const editProduct = products.filter((product) => product.id === productId);
+        dispatch(editTitle({product: editProduct,act: "title"}))
     }
-    useEffect(() => {
-        async function refetch () {
-            if(!showModal & data.length > 0){
-                setLoading(true);
-                setData([]);
-                const res = await fetch(`/api/products/${data[0]?.id_category}`);
-                const result = await res.json();
-                console.log("RES async",result)
-                setData(result);
-                setLoading(false);
-            }
-        }
-        refetch();
-    },[showModal])
   return (
     <>
-    <EditModal 
-        showModal = {showModal} 
-        setShowModal = {setShowModal}
-        setData = {setData}
-        product = {editProduct}  />
+    <EditModal />
     <Table striped bordered responsive variant = "dark" className = "mt-5">
             <thead>
                 <tr>
@@ -54,19 +36,20 @@ const DataTableProducts = ({ category, showModal, setShowModal }) => {
                     <th className = "text-center"> نام محصول</th>
                     <th className = "text-center">توضیحات</th>
                     <th className = "text-center">اندازه و قیمت</th>
-                    <th className = "text-center">ویرایش</th>
+                    <th className = "text-center">ویرایش مشخصات</th>
+                    <th className = "text-center">ویرایش قیمت </th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td colSpan={2}>
+                    <td colSpan={3}>
                         <FloatingLabel
                             data-bs-theme = "dark" 
                             controlId = "category" 
                             label = "دسته بندی محصول">
                             <Form.Select aria-label = "دسته بندی محصول" onChange = {handleRequest}>
                                 <option key = "none" value = "none">دسته بندی محصول انتخاب کنید</option>
-                                { category?.map((item) => (
+                                { categories?.map((item) => (
                                     <option 
                                         key = {item.id} 
                                         value = {item.id}>
@@ -76,22 +59,19 @@ const DataTableProducts = ({ category, showModal, setShowModal }) => {
                             </Form.Select>
                         </FloatingLabel>
                     </td>
-                    <td className = "d-flex justify-content-center">
-                    {loading && 
-                        <Row>
-                            <Loader color = "#FFC107" height = {40} width = {80} />
-                            <p className = "text-light fs-6 mt-1">لطفا صبر کنید</p>
-                        </Row>
-                    }
+                    <td colSpan={3} className = "d-flex justify-content-center">
+                    {loading && <Loader /> }
                     </td>
                     <td></td>
                     <td></td>
                 </tr>
-                {data?.map((item) => (
+                {products?.map((item) => (
                     <tr key = {item.id}>
                         <td className = "text-center align-content-center">{e2p(item.id)}</td>
                         <td className = "text-center align-content-center">{item.title}</td>
-                        <td className = "text-center align-content-center">{e2p(item.details)}</td>
+                        <td className = "text-center align-content-center">
+                            <p className = "w-100">{e2p(item.details)}</p>
+                        </td>
                         <td className = "text-center d-flex flex-column">
                             {item.prices.map((price,index) => (
                                 <Badge key = {index} bg = "warning" text = "dark" className = "mt-2" pill>
@@ -105,6 +85,7 @@ const DataTableProducts = ({ category, showModal, setShowModal }) => {
                                 onClick = {() => EditProducts(item.id)}>ویرایش
                             </Button>
                         </td>
+                        <td></td>
                     </tr>
                 ))}
             </tbody>

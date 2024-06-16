@@ -4,11 +4,13 @@ import Form from 'react-bootstrap/Form';
 import { postData } from 'src/services/postData';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectModal } from '@/features/modal/modalSlice';
+import { fetchProducts } from '@/features/products/productSlice';
 
 const FormEditProduct = ({data, handleClose}) => {
-
-
   const [inputs, setInputs] = useState(...data);
+  const dispatch = useDispatch();
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -19,8 +21,11 @@ const FormEditProduct = ({data, handleClose}) => {
     const res = await postData("/api/products/edit",{...inputs, id: data[0].id,},"PATCH");
     res.error ? toast.error(res.error) : toast.success(res.message);
     handleClose();
+    dispatch(fetchProducts(data[0].id_category));
   }
   return (
+    <>
+    {data.length > 0 &&
     <Form onSubmit = {submitHandler}>
         <Form.Group className="mb-3">
             <Form.Label>نام محصول</Form.Label>
@@ -45,6 +50,8 @@ const FormEditProduct = ({data, handleClose}) => {
             <Button variant = "warning" type = "submit">ذخیره تغییرات</Button>
         </div>
     </Form>
+    }
+    </>
   )
 }
 
