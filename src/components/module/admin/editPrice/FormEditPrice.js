@@ -8,14 +8,25 @@ import * as Icon from "react-bootstrap-icons";
 import { useState } from 'react';
 import { Badge } from 'react-bootstrap';
 import { sp } from '@/utils/replaceNumber';
+import { postData } from 'src/services/postData';
 const FormEditPrice = ({data, handleClose}) => {
     const {prices,id} = data[0];
     const [inputs,setInputs] = useState([...prices]);
     const [selectPrice, setSelectPrice] = useState({});
     const handleSelect = (idSize) => {
-        console.log(inputs[0])
-        setSelectPrice(() =>inputs.filter((input) => input.id_size === +idSize));
+        const selectPriceObject = inputs.filter((input) => input.id_size === +idSize);
+        setSelectPrice(selectPriceObject[0]);
     }
+    const handleChange = (event) => {
+        console.log(selectPrice)
+        setSelectPrice((values) =>({...values, [event.target.name]:event.target.value}));
+    }
+    const saveChanges = async (event) => {
+        event.preventDefault();
+        const res = await postData("/api/products/edit/price",selectPrice,"POST");
+        console.log(res);
+    }
+
     return (
         <>
         <Row>
@@ -33,20 +44,20 @@ const FormEditPrice = ({data, handleClose}) => {
                 ))}
             </Col>
         </Row>
-        {selectPrice.length > 0 &&
-        <Form>
+        {Object.keys(selectPrice).length > 0 &&
+        <Form onSubmit = {saveChanges}>
             <Row className="mb-3 align-items-center">
                 <Form.Group as={Col}>
                     <Form.Label>قیمت</Form.Label>
                     <Form.Control
-                        value = {selectPrice[0]?.price || 0}
-                        onChange={()=> console.log("click")}
+                        value = {selectPrice?.price || 0}
+                        onChange={handleChange}
                         placeholder ="قیمت"
                         name = "price" />
                 </Form.Group>
                 <Form.Group as={Col}>
                     <Form.Label>State</Form.Label>
-                    <Form.Select value = {selectPrice[0]?.size || "none"} onChange = {() => console.log("Size")}>
+                    <Form.Select name = "size" value = {selectPrice?.size || "none"} onChange = {handleChange}>
                         <option value = "none">انتخاب اندازه</option>
                         {Object.entries(dictionary).map(([key, value]) => (
                             <option key= {key} value = {key}>{value ? value : " بدون اندازه"}</option>
