@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { Badge } from 'react-bootstrap';
 import { sp } from '@/utils/replaceNumber';
 import { postData } from 'src/services/postData';
+import toast from 'react-hot-toast';
 const FormEditPrice = ({data, handleClose}) => {
     const {prices,id} = data[0];
     const [inputs,setInputs] = useState([...prices]);
@@ -18,13 +19,16 @@ const FormEditPrice = ({data, handleClose}) => {
         setSelectPrice(selectPriceObject[0]);
     }
     const handleChange = (event) => {
-        console.log(selectPrice)
         setSelectPrice((values) =>({...values, [event.target.name]:event.target.value}));
     }
     const saveChanges = async (event) => {
         event.preventDefault();
-        const res = await postData("/api/products/edit/price",selectPrice,"POST");
-        console.log(res);
+        if(selectPrice.size != "none"){
+            const res = await postData("/api/products/edit/price",selectPrice,"POST");
+            toast.success(res.message);
+        }else{
+            toast.error("لطفا سایز محصول را مشخص کنید")
+        }
     }
 
     return (
