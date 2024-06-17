@@ -27,7 +27,7 @@ const findCategory = async (slug) => {
 const productOfCategory = async (idCategory) =>{
   const connection = await connectDB();
   const [results] = await connection.query(
-    'SELECT products.* , size_product.price, size_product.size FROM products INNER JOIN size_product ON size_product.id_product = products.id WHERE products.id_category = ?',
+    'SELECT products.* , size_product.price, size_product.size, size_product.id AS id_size FROM products INNER JOIN size_product ON size_product.id_product = products.id WHERE products.id_category = ?',
     [idCategory]
   );
   connection.end();
@@ -53,6 +53,15 @@ const updateProduct = async (data) =>{
   connection.end();
   return result;
 }
+const updatePrice = async (data) =>{
+  const {price,size,id_size} = data;
+  const connection = await connectDB();
+  const sql = 'UPDATE `size_product` SET `price` = ?, `size` = ? WHERE `id` = ?';
+  const value = [price,size,id_size];
+  const [result] = await connection.query(sql,value);
+  connection.end();
+  return result;
+}
 
 
 export{ 
@@ -60,5 +69,6 @@ export{
   findCategory, 
   productOfCategory,
   findAdmin,
-  updateProduct 
+  updateProduct, 
+  updatePrice 
 };

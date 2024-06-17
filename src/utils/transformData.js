@@ -11,13 +11,14 @@ const transformData = async (data) => {
             result.push(map.get(item.id));
         }
         map.get(item.id).prices.push({
+            id_size: item.id_size,
             size: item.size,
             price: item.price
         });
     });
 
     return result.map(item => {
-        const { size, price, prices, ...rest } = item;
+        const {id_size,size, price, prices, ...rest } = item;
         return { ...rest, prices };
     });
 };
