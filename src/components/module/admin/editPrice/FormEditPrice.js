@@ -10,10 +10,15 @@ import { Badge } from 'react-bootstrap';
 import { sp } from '@/utils/replaceNumber';
 import { postData } from 'src/services/postData';
 import toast from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
+import { fetchProducts } from '@/features/products/productSlice';
 const FormEditPrice = ({data, handleClose}) => {
-    const {prices,id} = data[0];
+
+    const {prices,id,id_category} = data[0];
     const [inputs,setInputs] = useState([...prices]);
     const [selectPrice, setSelectPrice] = useState({});
+    const dispatch = useDispatch();
+
     const handleSelect = (idSize) => {
         const selectPriceObject = inputs.filter((input) => input.id_size === +idSize);
         setSelectPrice(selectPriceObject[0]);
@@ -26,11 +31,17 @@ const FormEditPrice = ({data, handleClose}) => {
         if(selectPrice.size != "none"){
             const res = await postData("/api/products/edit/price",selectPrice,"POST");
             toast.success(res.message);
+            dispatch(fetchProducts(id_category));
+            setInputs(() => (inputs.map(item => {
+                if (item.id_size === selectPrice.id_size) {
+                  return { ...item, price: selectPrice.price };
+                }
+                return item;
+              })));
         }else{
             toast.error("لطفا سایز محصول را مشخص کنید")
         }
     }
-
     return (
         <>
         <Row>
@@ -64,13 +75,16 @@ const FormEditPrice = ({data, handleClose}) => {
                     <Form.Select name = "size" value = {selectPrice?.size || "none"} onChange = {handleChange}>
                         <option value = "none">انتخاب اندازه</option>
                         {Object.entries(dictionary).map(([key, value]) => (
-                            <option key= {key} value = {key}>{value ? value : " بدون اندازه"}</option>
+                            <option key= {key} value = {key}>{value ? value : " بدون سایز"}</option>
                         ))}
                     </Form.Select>
                 </Form.Group>
                 <Col xs="auto">
                     <Button variant = "warning" className = "mt-4" type="submit">
                         <Icon.CheckLg/>
+                    </Button>
+                    <Button variant = "danger" className = "mt-4 ms-2">
+                        <Icon.TrashFill/>
                     </Button>
                 </Col>
             </Row>

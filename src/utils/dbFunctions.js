@@ -14,7 +14,7 @@ const findCategory = async (slug) => {
 
   const regex = /[^A-Za-z0-9-]/;
   if(regex.test(slug)){
-     throw "An error occurred";
+     throw "آدرس مورد نظر یافت نشد";
   }
   const connection = await connectDB();
   const [results] = await connection.query(
@@ -62,6 +62,14 @@ const updatePrice = async (data) =>{
   connection.end();
   return result;
 }
+const deletePrice = async (id_size) =>{
+  const connection = await connectDB();
+  const sql = 'DELETE FROM `size_product` WHERE `id`=?';
+  const value = [id_size];
+  const [result] = await connection.query(sql,value);
+  connection.end();
+  return result;
+}
 
 
 export{ 
@@ -70,5 +78,6 @@ export{
   productOfCategory,
   findAdmin,
   updateProduct, 
-  updatePrice 
+  updatePrice,
+  deletePrice 
 };
