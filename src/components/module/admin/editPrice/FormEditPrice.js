@@ -12,6 +12,7 @@ import { postData } from 'src/services/postData';
 import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { fetchProducts } from '@/features/products/productSlice';
+import DeletePrice from './DeletePrice';
 const FormEditPrice = ({data, handleClose}) => {
 
     const {prices,id,id_category} = data[0];
@@ -83,9 +84,11 @@ const FormEditPrice = ({data, handleClose}) => {
                     <Button variant = "warning" className = "mt-4" type="submit">
                         <Icon.CheckLg/>
                     </Button>
-                    <Button variant = "danger" className = "mt-4 ms-2">
-                        <Icon.TrashFill/>
-                    </Button>
+                    <DeletePrice 
+                        id_size = {selectPrice.id_size}
+                        inputs = {inputs}
+                        setInputs = {setInputs}
+                        setSelectPrice = {setSelectPrice} />
                 </Col>
             </Row>
         </Form>
