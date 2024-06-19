@@ -70,6 +70,15 @@ const deletePrice = async (id_size) =>{
   connection.end();
   return result;
 }
+const insertPrice = async (data) => {
+  const {id_product,price,size} = data;
+  const connection = await connectDB();
+  const sql = 'INSERT INTO `size_product` (`id_product`,`price`,`size`) VALUES (?,?,?)';
+  const value = [id_product,price,size];
+  const [result] = await connection.query(sql,value);
+  connection.end();
+  return result;
+}
 
 
 export{ 
@@ -79,5 +88,6 @@ export{
   findAdmin,
   updateProduct, 
   updatePrice,
-  deletePrice 
+  deletePrice,
+  insertPrice 
 };
