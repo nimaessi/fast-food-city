@@ -36,6 +36,9 @@ const FormEditPrice = ({data, handleClose}) => {
             console.log(res)
             toast.success(res.message);
             dispatch(fetchProducts(id_category));
+            if(selectPrice.id_size === 0 && res.message){
+                handleClose();
+            }
             setInputs(() => (inputs.map(item => {
                 if (item.id_size === selectPrice.id_size) {
                   return { ...item, price: selectPrice.price };
@@ -50,7 +53,11 @@ const FormEditPrice = ({data, handleClose}) => {
         <>
         <Row>
             <Col className = "mt-3 text-center">
-                <NewPrice setSelectPrice = {setSelectPrice} id_product = {id} />
+                {inputs.length < 3 && 
+                    <NewPrice 
+                        setSelectPrice = {setSelectPrice} 
+                        id_product = {id} />
+                }
                 {inputs?.map((price,index) => (
                     <Badge
                         onClick = {() => handleSelect(price.id_size)}

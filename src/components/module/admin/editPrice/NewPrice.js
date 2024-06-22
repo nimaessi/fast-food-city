@@ -2,9 +2,9 @@
 import { Badge } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
 
-const NewPrice = ({setSelectPrice,id_product}) => {
+const NewPrice = ({setSelectPrice,id_product,handleClose}) => {
     const handleClick = () => {
-        setSelectPrice({id_size: 0, size: "none",id_product})
+        setSelectPrice({id_size: 0, size: "none",id_product});
     }
   return (
     <Badge 
