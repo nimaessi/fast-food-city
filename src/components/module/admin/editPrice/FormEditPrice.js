@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import * as Icon from "react-bootstrap-icons";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Badge } from 'react-bootstrap';
 import { sp } from '@/utils/replaceNumber';
 import { postData } from 'src/services/postData';
@@ -13,6 +13,7 @@ import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { fetchProducts } from '@/features/products/productSlice';
 import DeletePrice from './DeletePrice';
+import NewPrice from './NewPrice';
 const FormEditPrice = ({data, handleClose}) => {
 
     const {prices,id,id_category} = data[0];
@@ -22,6 +23,7 @@ const FormEditPrice = ({data, handleClose}) => {
 
     const handleSelect = (idSize) => {
         const selectPriceObject = inputs.filter((input) => input.id_size === +idSize);
+        console.log(selectPrice)
         setSelectPrice(selectPriceObject[0]);
     }
     const handleChange = (event) => {
@@ -31,6 +33,7 @@ const FormEditPrice = ({data, handleClose}) => {
         event.preventDefault();
         if(selectPrice.size != "none"){
             const res = await postData("/api/products/edit/price",selectPrice,"POST");
+            console.log(res)
             toast.success(res.message);
             dispatch(fetchProducts(id_category));
             setInputs(() => (inputs.map(item => {
@@ -47,6 +50,7 @@ const FormEditPrice = ({data, handleClose}) => {
         <>
         <Row>
             <Col className = "mt-3 text-center">
+                <NewPrice setSelectPrice = {setSelectPrice} id_product = {id} />
                 {inputs?.map((price,index) => (
                     <Badge
                         onClick = {() => handleSelect(price.id_size)}
