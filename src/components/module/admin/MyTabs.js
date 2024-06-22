@@ -3,6 +3,7 @@ import { Tabs, Tab } from 'react-bootstrap';
 import DataTableCategory from './DataTable';
 import DataTableProducts from './DataTableProducts';
 import { useState } from 'react';
+import FormNewProduct from './newProduct/FormNewProduct';
 const MyTabs = () => {
   const [category, setCategory] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -24,6 +25,9 @@ const MyTabs = () => {
             category = {category}
             showModal = {showModal}
             setShowModal = {setShowModal} />
+        </Tab>
+        <Tab eventKey = "new_product" title = "افزودن محصول جدید">
+          <FormNewProduct />            
         </Tab>
       </Tabs>
   )

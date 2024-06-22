@@ -79,7 +79,15 @@ const insertPrice = async (data) => {
   connection.end();
   return result;
 }
-
+const insertNewProduct = async (data) => {
+  const {title, details, id_category} = data;
+  const connection = await connectDB();
+  const sql = 'INSERT INTO `products` (`id_category`,`title`,`details`) VALUES (?,?,?)';
+  const value = [id_category,title,details];
+  const [result] = await connection.query(sql,value);
+  connection.end();
+  return result;
+}
 
 export{ 
   selectCategory, 
@@ -89,5 +97,6 @@ export{
   updateProduct, 
   updatePrice,
   deletePrice,
-  insertPrice 
+  insertPrice,
+  insertNewProduct 
 };

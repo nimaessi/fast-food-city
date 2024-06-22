@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import Link from 'next/link';
 import { Container } from 'react-bootstrap'
 import * as Icon from "react-bootstrap-icons";
 export default function NotFound() {
