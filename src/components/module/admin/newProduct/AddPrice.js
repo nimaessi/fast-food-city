@@ -18,10 +18,14 @@ const AddPrice = ({inputs,setInputs}) => {
 
     const clickHandler = () => {
         if(data.size !="none" && data.price > 0){
-            const updatePrice = [...inputs.prices];
-            updatePrice.push(data);
-            setInputs((prevState) =>({...prevState, prices: updatePrice}));
-            setData({});
+            if(inputs.prices.length < 3){
+                const updatePrice = [...inputs.prices];
+                updatePrice.push(data);
+                setInputs((prevState) =>({...prevState, prices: updatePrice}));
+                setData({});
+            }else{
+                toast.error("بیشتر از سه قیمت نمی توانید وارد کنید");
+            }
         }else{
             toast.error("قیمت و سایز محصول را وارد کنید");
         }

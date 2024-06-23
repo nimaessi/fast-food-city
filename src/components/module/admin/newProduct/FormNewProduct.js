@@ -1,7 +1,6 @@
 "use client"
-import { dictionary } from "@/constants/dictionary";
 import { selectAllCategory } from "@/features/category/categorySlice";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Container } from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
@@ -26,15 +25,18 @@ const FormNewProduct = () => {
     }
     const handleSubmit = async(event) => {
         event.preventDefault();
-        const res = await postData("/api/products/new",inputs,"POST");
-        if(res.message){
-            toast.success(res.message);
-            setInputs(initialState);
+        if(inputs.prices.length > 0){
+            const res = await postData("/api/products/new",inputs,"POST");
+            if(res.message){
+                toast.success(res.message);
+                setInputs(initialState);
+            }else{
+                toast.error(res.error);
+            }
         }else{
-            toast.error(res.error);
+            toast.error("قیمت و سایز محصول را مشخص کنید");
         }
     }
-    useEffect(() => {console.log(inputs)},[inputs])
   return (
     <Container fluid className = "py-5" >
         <Form 

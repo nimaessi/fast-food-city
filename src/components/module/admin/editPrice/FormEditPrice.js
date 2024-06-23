@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import * as Icon from "react-bootstrap-icons";
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Badge } from 'react-bootstrap';
 import { sp } from '@/utils/replaceNumber';
 import { postData } from 'src/services/postData';
@@ -23,7 +23,6 @@ const FormEditPrice = ({data, handleClose}) => {
 
     const handleSelect = (idSize) => {
         const selectPriceObject = inputs.filter((input) => input.id_size === +idSize);
-        console.log(selectPrice)
         setSelectPrice(selectPriceObject[0]);
     }
     const handleChange = (event) => {
@@ -31,9 +30,8 @@ const FormEditPrice = ({data, handleClose}) => {
     }
     const saveChanges = async (event) => {
         event.preventDefault();
-        if(selectPrice.size != "none"){
+        if(selectPrice.size != "none" && selectPrice.price > 0){
             const res = await postData("/api/products/edit/price",selectPrice,"POST");
-            console.log(res)
             toast.success(res.message);
             dispatch(fetchProducts(id_category));
             if(selectPrice.id_size === 0 && res.message){
@@ -46,7 +44,7 @@ const FormEditPrice = ({data, handleClose}) => {
                 return item;
               })));
         }else{
-            toast.error("لطفا سایز محصول را مشخص کنید")
+            toast.error("لطفا سایز و قیمت محصول را مشخص کنید")
         }
     }
     return (
@@ -95,11 +93,14 @@ const FormEditPrice = ({data, handleClose}) => {
                     <Button variant = "warning" className = "mt-4" type="submit">
                         <Icon.CheckLg/>
                     </Button>
+                    {inputs.length > 1 &&
                     <DeletePrice 
                         id_size = {selectPrice.id_size}
                         inputs = {inputs}
                         setInputs = {setInputs}
-                        setSelectPrice = {setSelectPrice} />
+                        setSelectPrice = {setSelectPrice}
+                        id_category = {id_category} />
+                    }
                 </Col>
             </Row>
         </Form>
