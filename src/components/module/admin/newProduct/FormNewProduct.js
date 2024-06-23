@@ -29,7 +29,7 @@ const FormNewProduct = () => {
         const res = await postData("/api/products/new",inputs,"POST");
         if(res.message){
             toast.success(res.message);
-            setInputs({});
+            setInputs(initialState);
         }else{
             toast.error(res.error);
         }

@@ -7,6 +7,7 @@ import Row from 'react-bootstrap/Row';
 import * as Icon from "react-bootstrap-icons";
 import { useState } from "react";
 import { e2p } from "@/utils/replaceNumber";
+import toast from "react-hot-toast";
 
 const AddPrice = ({inputs,setInputs}) => {
 
@@ -16,23 +17,28 @@ const AddPrice = ({inputs,setInputs}) => {
     }
 
     const clickHandler = () => {
-        const updatePrice = [...inputs.prices];
-        updatePrice.push(data);
-        setInputs((prevState) =>({...prevState, prices: updatePrice}));
-        setData({});
-
+        if(data.size !="none" && data.price > 0){
+            const updatePrice = [...inputs.prices];
+            updatePrice.push(data);
+            setInputs((prevState) =>({...prevState, prices: updatePrice}));
+            setData({});
+        }else{
+            toast.error("قیمت و سایز محصول را وارد کنید");
+        }
     }
 
   return (
     <>
     <Row>
         <Col className = "d-flex justify-content-center">
-        {inputs.prices.map((price) =>(
+        {inputs.prices.map((price,index) =>(
             <Badge 
                 bg = "warning" 
-                text = "dark" 
+                text = "dark"
+                key = {index} 
                 className = "ms-2 p-2">
-                    {dictionary[price.size] === "" ? "بدون سایز": dictionary[price.size]}{e2p(price.price)}
+                    {dictionary[price.size] === "" ? "بدون سایز": dictionary[price.size]}
+                    {price.price > 0 ? e2p(price.price): ""}
             </Badge>
         ))}
         </Col>
