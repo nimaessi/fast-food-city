@@ -88,6 +88,22 @@ const insertNewProduct = async (data) => {
   connection.end();
   return result;
 }
+  const deleteProduct = async (id) => {
+    const connection = await connectDB();
+    const sql = 'DELETE FROM `products` WHERE `id`=?';
+    const value = [id];
+    const [result] = await connection.query(sql,value);
+    connection.end();
+    return result;
+}
+const deleteAllPrice = async (id_product) =>{
+  const connection = await connectDB();
+  const sql = 'DELETE FROM `size_product` WHERE `id_product`=?';
+  const value = [id_product];
+  const [result] = await connection.query(sql,value);
+  connection.end();
+  return result;
+}
 
 export{ 
   selectCategory, 
@@ -98,5 +114,7 @@ export{
   updatePrice,
   deletePrice,
   insertPrice,
-  insertNewProduct 
+  insertNewProduct,
+  deleteProduct,
+  deleteAllPrice 
 };

@@ -11,6 +11,7 @@ import { selectAllCategory } from "@/features/category/categorySlice";
 import { fetchProducts, selectProduct } from "@/features/products/productSlice";
 import { editTitle } from "@/features/modal/modalSlice";
 import HeadTableProduct from "./HeadTableProduct";
+import DeleteProducts from "./DeleteProducts";
 const DataTableProducts = () => {
 
     const {categories} = useSelector(selectAllCategory);
@@ -83,7 +84,9 @@ const DataTableProducts = () => {
                             onClick = {() => EditProducts(item.id,"price")}>ویرایش
                         </Button>
                     </td>
-                    <td></td>
+                    <td>
+                        <DeleteProducts idProduct ={item.id} idCategory = {item.id_category} />
+                    </td>
                 </tr>
             ))}
         </tbody>
