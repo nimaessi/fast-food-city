@@ -9,6 +9,7 @@ const HeadTableProduct = () => {
             <th className = "text-center">اندازه و قیمت</th>
             <th className = "text-center">ویرایش مشخصات</th>
             <th className = "text-center">ویرایش قیمت </th>
+            <th className = "text-center">حذف محصول</th>
         </tr>
     </thead>
   )

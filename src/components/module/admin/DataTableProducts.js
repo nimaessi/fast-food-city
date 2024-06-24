@@ -55,6 +55,7 @@ const DataTableProducts = () => {
                 </td>
                 <td></td>
                 <td></td>
+                <td></td>
             </tr>
             {products?.map((item) => (
                 <tr key = {item.id}>
@@ -82,6 +83,7 @@ const DataTableProducts = () => {
                             onClick = {() => EditProducts(item.id,"price")}>ویرایش
                         </Button>
                     </td>
+                    <td></td>
                 </tr>
             ))}
         </tbody>

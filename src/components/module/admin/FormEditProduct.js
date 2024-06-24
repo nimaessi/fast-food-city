@@ -4,8 +4,7 @@ import Form from 'react-bootstrap/Form';
 import { postData } from 'src/services/postData';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectModal } from '@/features/modal/modalSlice';
+import { useDispatch } from 'react-redux';
 import { fetchProducts } from '@/features/products/productSlice';
 
 const FormEditProduct = ({data, handleClose}) => {
