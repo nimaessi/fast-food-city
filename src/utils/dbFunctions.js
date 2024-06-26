@@ -104,6 +104,15 @@ const deleteAllPrice = async (id_product) =>{
   connection.end();
   return result;
 }
+const upadteCategory = async(data) => {
+  const {slug, label,disable,id_category} = data;
+  const connection = await connectDB();
+  const sql = 'UPDATE `category` SET `slug` = ?, `label` = ?, `disable` =? WHERE `id` = ?';
+  const value = [slug,label,disable,id_category];
+  const [result] = await connection.query(sql,value);
+  connection.end();
+  return result;
+}
 
 export{ 
   selectCategory, 
@@ -116,5 +125,6 @@ export{
   insertPrice,
   insertNewProduct,
   deleteProduct,
-  deleteAllPrice 
+  deleteAllPrice,
+  upadteCategory 
 };
