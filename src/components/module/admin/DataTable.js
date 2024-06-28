@@ -1,12 +1,13 @@
 "use client"
-import { useEffect } from "react";
-import { Button, Table } from "react-bootstrap";
+import { act, useEffect } from "react";
+import { Badge, Button, Table } from "react-bootstrap";
 import { e2p } from "@/utils/replaceNumber";
 import Image from "next/image";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCategories, selectAllCategory } from "@/features/category/categorySlice";
 import Loader from "../loading";
+import { editCategory } from "@/features/modal/modalSlice";
 
 const DataTableCategory = () => {
 
@@ -14,7 +15,10 @@ const DataTableCategory = () => {
     const {categories, error, loading } = useSelector(selectAllCategory);
     useEffect(() => {
         dispatch(fetchCategories());
-    },[])
+    },[]); 
+    const clickHandler = (id_category, slug, label, disable) => {
+        dispatch(editCategory({category: {id_category,slug,label,disable}, act: "category" }));
+    }
   return (
     <>
     {loading ? (<Loader/>) :(
@@ -26,6 +30,7 @@ const DataTableCategory = () => {
                     <th className = "text-center">لینک صفحه</th>
                     <th className = "text-center">عکس</th>
                     <th className = "text-center">ویرایش</th>
+                    <th className = "text-center">وضعیت</th>
                 </tr>
             </thead>
             <tbody>
@@ -46,7 +51,17 @@ const DataTableCategory = () => {
                                 height ={90} />
                         </td>
                         <td className = "text-center align-content-center">
-                            <Button variant = "warning">ویرایش</Button>
+                            <Button 
+                                variant = "warning" 
+                                onClick={() => clickHandler(item.id,item.slug,item.label,item.disable)}>
+                                    ویرایش
+                            </Button>
+                        </td>
+                        <td className = "text-center align-content-center">
+                            {item.disable ? 
+                                <Badge bg = "danger" className = "p-2">غیرفعال</Badge>: 
+                                <Badge bg = "success" className = "p-2">فعال</Badge>
+                            }
                         </td>
                     </tr>
                 ))}

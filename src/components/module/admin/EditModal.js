@@ -4,14 +4,28 @@ import FormEditProduct from "./FormEditProduct";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal, selectModal } from "@/features/modal/modalSlice";
 import FormEditPrice from "./editPrice/FormEditPrice";
+import FormEditCategory from "./editCategory/FormEditCategory";
 
 const EditModal = () => {
 
     const {show, action, product} = useSelector(selectModal);
     const dispatch = useDispatch();
     const handleClose = () => dispatch(closeModal());
-    const title = action === "title" ? "ویرایش محصول" : "ویرایش قیمت";
-    
+
+    var title = "";
+    switch (action) {
+      case "title":
+        title = "ویرایش محصول"
+        break;
+      case "category":
+        title = "ویرایش دسته بندی"
+        break;
+      case "price":
+        title = "ویرایش  قیمت"
+        break;
+      default:
+        title = " "
+    }    
   return (
     <Modal show = {show} onHide = {handleClose} data-bs-theme = "dark">
         <Modal.Header closeButton>
@@ -20,6 +34,7 @@ const EditModal = () => {
         <Modal.Body>
             {action === "title" && <FormEditProduct data = {product} handleClose = {handleClose}  />}
             {action === "price" && <FormEditPrice data = {product} handleClose = {handleClose} />}
+            {action === "category" && <FormEditCategory />}
         </Modal.Body>
     </Modal>
   )
