@@ -10,6 +10,15 @@ const selectCategory = async () => {
   return results;
 }
 
+const selectEnableCategory = async () => {
+  const connection = await connectDB();
+  const sql = 'SELECT * FROM category WHERE `disable` = ?';
+  const value = [false]
+  const [results, fields] = await connection.query(sql,value);
+  connection.end();
+  return results;
+}
+
 const findCategory = async (slug) => {
 
   const regex = /[^A-Za-z0-9-]/;
@@ -126,5 +135,6 @@ export{
   insertNewProduct,
   deleteProduct,
   deleteAllPrice,
-  upadteCategory 
+  upadteCategory,
+  selectEnableCategory 
 };

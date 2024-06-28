@@ -3,7 +3,7 @@ import MyCard from "./MyCard";
 import { getData } from "src/services/fetchData";
 
 const CategoryMenu = async () => {
-  const categories = await getData(`${process.env.BASE_URL_API}/category/getCategories`);
+  const categories = await getData(`${process.env.BASE_URL_API}/category/getEnableCategory`);
   const rows = [];
   for (let i = 0; i < categories.length; i += 3) {
     rows.push(categories.slice(i, i + 3));
