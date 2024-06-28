@@ -23,6 +23,10 @@ export async function POST(req){
             return NextResponse.json({error: "دسته بندی مورد نظر یافت نشد"},{status: 404});
         }  
     }catch(err){
-        return NextResponse.json({error: "خطایی در سرور رخ داده است"},{status:500});
+        if(err.code === "ER_DUP_ENTRY"){
+            return NextResponse.json({error: "نام دسته بندی به انگلیسی وجود دارد"},{status:400});
+        }else{
+            return NextResponse.json({error: "خطایی در سرور رخ داده است"},{status:500});
+        }
     }
 }
