@@ -1,5 +1,5 @@
 "use client"
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { Button, Container, Navbar } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
@@ -19,7 +19,7 @@ const Header = () => {
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end">
                 { data &&
-                    <Button variant = "warning">
+                    <Button variant = "warning" onClick = {signOut}>
                         خروج
                         <Icon.BoxArrowLeft className = "ms-2" />
                     </Button>

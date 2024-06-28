@@ -2,9 +2,12 @@ import { verifyPassword } from "@/utils/auth";
 import { findAdmin } from "@/utils/dbFunctions";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
-////username in form login === email
+////username for login email
 export const authOptions = {
-    session: { strategy: "jwt" },
+    session: { 
+      strategy: "jwt",
+      maxAge: 1 * 60 * 60 // 1 hours
+     },
     providers: [
       CredentialsProvider({
         async authorize(credentials) {
