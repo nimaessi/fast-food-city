@@ -4,9 +4,11 @@ import { vazir } from '@/utils/fonts';
 import "./globals.css";
 import { Toaster } from 'react-hot-toast';
 import NextAuthProvider from '@/providers/NextAuthProvider';
+
 export const metadata = {
   title: "شهر فست فود",
   description: "منو شهر فست فود",
+  icons: { icon: "./favicon.ico" },
 };
 
 export default function RootLayout({ children }) {
