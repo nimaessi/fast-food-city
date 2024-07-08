@@ -23,6 +23,9 @@ const EditModal = () => {
       case "price":
         title = "ویرایش  قیمت"
         break;
+      case "upload-pic":
+        title = "آپلود عکس"
+        break;
       default:
         title = " "
     }    

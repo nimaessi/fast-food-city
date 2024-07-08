@@ -1,5 +1,5 @@
 "use client"
-import { act, useEffect } from "react";
+import { useEffect } from "react";
 import { Badge, Button, Table } from "react-bootstrap";
 import { e2p } from "@/utils/replaceNumber";
 import Image from "next/image";
@@ -16,8 +16,10 @@ const DataTableCategory = () => {
     useEffect(() => {
         dispatch(fetchCategories());
     },[]); 
-    const clickHandler = (id_category, slug, label, disable) => {
-        dispatch(editCategory({category: {id_category,slug,label,disable}, act: "category" }));
+    const clickHandler = (id_category, slug, label, disable, act = "category") => {
+        if(act === "category"){
+            dispatch(editCategory({category: {id_category,slug,label,disable}, act: "category" }));
+        }
     }
   return (
     <>
